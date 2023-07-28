@@ -4,9 +4,28 @@ module.exports.profile= function(req,res){
   })
 }
 
+//render sign up page  from  view folder 
+module.exports.signUp=(req,res)=>{
+  return res.render('user_sign_up',{
+    title:"Codeial|SignUp"
+  })
+};
+module.exports.signIn=(req,res)=>{
+  return res.render('user_sign_in',{
+    title:"Codeial|SignIn"
+  })
+};
 
 
+//get the sign up data
+module.exports.create=(req,res)=>{
+  //todo later
+}
 
+//get the sign in data
+module.exports.createSession=(req,res)=>{
+  //todo later
+}
 
 
 
