@@ -91,7 +91,7 @@ module.exports.create = async function (req, res) {
 
 //get the sign in data
 module.exports.createSession = (req, res) => {
-  //todo later
+  return res.redirect('/');
 }
 
 
