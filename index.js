@@ -16,6 +16,9 @@ const passport=require('passport');
 const passportLocal=require('./config/passport-local-strategy');
 
 
+const MongoStore=require('connect-mongo');
+
+
 // there must be work flow
 
 app.use(express.urlencoded());
@@ -45,6 +48,7 @@ app.set('view engine', 'ejs');
 app.set('views','./views');
 
 //because we stored it
+//mongostore is used to store an cookie in the db
 app.use(session({
     name:"Codeial",
     secret:'blahsomething',
@@ -52,12 +56,24 @@ app.use(session({
     resave:false,
     cookie:{
         maxAge:(1000*60*100) //like an otp how much time you have
-    }
+    },
+    store: MongoStore.create(
+        {
+            mongoUrl:'mongodb://0.0.0.0:27017/codeial_development',
+            autoRemover : 'disabled'
+        },
+        function(err){
+            console.log("Error in the mongo-store");
+        }
+    ),
 }))
 
 app.use(passport.initialize());
 app.use(passport.session())
 
+
+app.use(passport.setAuthenticatedUser); 
+//next() will call routes which is affter these
 
 //use express router
 

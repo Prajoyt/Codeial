@@ -8,11 +8,21 @@ module.exports.profile = function (req, res) {
 
 //render sign up page  from  view folder 
 module.exports.signUp = (req, res) => {
+  if(req.isAuthenticated()){
+     return res.redirect('/users/profile');
+  }
+
+
   return res.render('user_sign_up', {
     title: "Codeial|SignUp"
   })
 };
 module.exports.signIn = (req, res) => {
+
+  if (req.isAuthenticated()) {
+   return  res.redirect('/users/profile')
+  }
+
   return res.render('user_sign_in', {
     title: "Codeial|SignIn"
   })

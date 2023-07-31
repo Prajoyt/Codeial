@@ -21,7 +21,7 @@ passport.use(new localStrategy({
             console.log("Invalid Passwordor Username");
             return done(null, false);
         }
-        return done(null, user);
+        return done(null, user); //it is returning the user to serializer
     }
 
 ));
@@ -51,5 +51,51 @@ passport.deserializeUser(async function(id, done){
     } 
     return done(null, userId);
 });
+
+//check if the user is authenicated or not
+/*
+passport.checkAuthentication = function (req, res, next){
+    // if user is signed in , then pass on the request ot the next fucntion (controller's action) -middleware
+if(req.isAuthenticated()){
+      return next();
+}
+
+
+// if the user is not signed in
+return res.redirect('/users/sign-in')
+}
+//set the function for the views it is middleware to check weather the user is signed in or not
+passport.setAuthenticatedUser=function(req,res,next){
+    if(req.isAuthenticated()){
+         // currenct user data is stored in the req, so we are just storing its data to res.
+        req.locals.user=req.user;
+    }
+    next();
+}
+ */
+passport.checkAuthentication = function (req, res, next){
+    // if user is signed in , then pass on the request ot the next fucntion (controller's action)
+    if(req.isAuthenticated()){
+        return next();
+    }
+    // if the user is not signed in
+    return res.redirect('/users/sign-in');
+}
+
+passport.setAuthenticatedUser = function(req, res, next){
+    if(req.isAuthenticated()){
+        // currenct user data is stored in the req, so we are just storing its data to res.
+        res.locals.user = req.user
+    }
+    next();
+}
+
+
+
+
+
+
+
+
 
 module.exports=passport;
