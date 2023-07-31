@@ -14,7 +14,7 @@ router.get('/item',homeController.item);
 
 router.use('/users', require('./users'));
 
-router.use('/post',require('./post'));
+router.use('/posts',require('./posts'));
 
 
 router.use('/cat',require('./tiger'));
