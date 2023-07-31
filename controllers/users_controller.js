@@ -103,6 +103,23 @@ module.exports.create = async function (req, res) {
 module.exports.createSession = (req, res) => {
   return res.redirect('/');
 }
+/*
+module.exports.destroySession=(req,res)=>{
+  req.logout() //these function given by passport.js
+  return  res.redirect('/');
+} */
+
+module.exports.destroySession = function(req, res){
+  req.flash('success' , 'Logged Out');
+  req.logout((err) => {
+      if (err) {
+          return done(err);
+      }
+  })
+  return res.redirect('/users/sign-in');
+}
+
+
 
 
 

@@ -18,7 +18,7 @@ const passportLocal=require('./config/passport-local-strategy');
 
 const MongoStore=require('connect-mongo');
 
-
+const flash = require('connect-flash');
 // there must be work flow
 
 app.use(express.urlencoded());
@@ -74,6 +74,10 @@ app.use(passport.session())
 
 app.use(passport.setAuthenticatedUser); 
 //next() will call routes which is affter these
+
+app.use(flash());
+//app.use(customMware.setFlash);
+
 
 //use express router
 
